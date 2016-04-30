@@ -14,7 +14,6 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import java.io.InputStream;
 import java.net.URL;
 
@@ -27,9 +26,10 @@ public class ShowImage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_image);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-
-        img = (ImageView) findViewById(R.id.profilepic);
+        img = (ImageView)findViewById(R.id.img);
         new LoadImage().execute("https://www.winuall.com/uploads/IMG_20160428_083926~2.jpg");
         /*
         To load image from website... :P
