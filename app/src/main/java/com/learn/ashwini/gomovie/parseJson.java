@@ -3,6 +3,7 @@ package com.learn.ashwini.gomovie;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ import android.widget.Toast;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Iterator;
 
 
 import org.json.JSONArray;
@@ -80,9 +82,15 @@ public class parseJson extends AppCompatActivity {
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        System.out.print(response);
+
+
                         // the response is already constructed as a JSONObject!
                         try {
+                            Iterator<String> iterator = response.keys();
+                            while (iterator.hasNext()) {
+                                String key = iterator.next();
+                                Log.i("TAG","key:"+key +"--Value::"+response.optString(key));
+                            }
                             int repos = -1;
                             repos = response.getInt("public_repos");
                             int followers = response.getInt("followers");
