@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -46,6 +48,13 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 public class parseJson extends AppCompatActivity {
+    String message;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_scrolling, menu);
+        return true;
+    }
     TextView repo,location,user,follower;
     Button showRepo;
     ImageView img;
@@ -95,12 +104,12 @@ public class parseJson extends AppCompatActivity {
                             repos = response.getInt("public_repos");
                             int followers = response.getInt("followers");
                             int following = response.getInt("following");
-                            String githubUsername = response.getString("login");
                             String name = response.getString("name");
                             String userLocation = response.getString("location");
+                            String gituser= response.getString("login");
                             String imgUrl = response.getString("avatar_url");
-
-
+                            String shareMessage  = gituser+"'s details: \nName: "+name+"\n Location: "+userLocation+"\nFollowers: "+Integer.toString(followers)+"\nFollowing : "+Integer.toString(following)+"\nTotal Repositories:"+Integer.toString(repos);
+                            message = shareMessage;
 
 //                            JSONArray res=response.getJSONArray("results");
                             repo=(TextView)findViewById(R.id.info_text);
@@ -130,6 +139,42 @@ public class parseJson extends AppCompatActivity {
                 });
 
         Volley.newRequestQueue(this).add(jsonRequest);
+
+    }
+
+    public void getMessage(String message){
+        String shareMessage = message;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            Toast.makeText(parseJson.this,
+                    "Settings Clicked", Toast.LENGTH_LONG).show();
+
+            return true;
+
+
+        }
+        else  if (id == R.id.share) {
+
+            Toast.makeText(parseJson.this,
+                    "Share Clicked", Toast.LENGTH_LONG).show();
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, message);
+            sendIntent.setType("text/plain");
+            startActivity(Intent.createChooser(sendIntent, "GitHub User Information"));
+            return true;
+
+
+        }
+        return super.onOptionsItemSelected(item);
     }
     //LoadImage class declare and define karte hain.
 
