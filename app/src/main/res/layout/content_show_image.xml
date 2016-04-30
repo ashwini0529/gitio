@@ -21,4 +21,15 @@
         android:layout_height="wrap_content"
         android:id="@+id/web"
         ></WebView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="350dp"
+        android:id="@+id/notificationButton"
+        android:text="Notify"
+        android:layout_marginRight="100dp"
+        android:textSize="30dp"
+        android:textColor="#FFFFFF"
+        android:fontFamily="sans-serif-condensed"
+        android:background="@color/colorPrimary"/>
 </RelativeLayout>

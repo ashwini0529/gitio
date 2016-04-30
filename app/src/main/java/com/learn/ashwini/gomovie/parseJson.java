@@ -1,7 +1,9 @@
 package com.learn.ashwini.gomovie;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,15 +44,24 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 public class parseJson extends AppCompatActivity {
-    TextView repo;
-    TextView location;
-    TextView user;
-    TextView follower;
+    TextView repo,location,user,follower;
+    Button showRepo;
     ImageView img;
     Bitmap bitmap;
-    ProgressDialog pDialog;
+    private ProgressDialog progress;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+    /*
+        Defining onClicks
+
+    */
+
+
+
+
+
+
 
 
         img = (ImageView) findViewById(R.id.img);
@@ -61,8 +72,10 @@ public class parseJson extends AppCompatActivity {
         String username = bundle.getString("username");
 
         String url = "https://api.github.com/users/".concat(username);
-        Toast.makeText(parseJson.this,
-                url, Toast.LENGTH_LONG).show();
+
+        progress = new ProgressDialog(parseJson.this);
+        progress.setMessage("Fetching data");
+        progress.show();
         JsonObjectRequest jsonRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
@@ -70,13 +83,15 @@ public class parseJson extends AppCompatActivity {
                         System.out.print(response);
                         // the response is already constructed as a JSONObject!
                         try {
-                            int repos = response.getInt("public_repos");
+                            int repos = -1;
+                            repos = response.getInt("public_repos");
                             int followers = response.getInt("followers");
                             int following = response.getInt("following");
                             String githubUsername = response.getString("login");
                             String name = response.getString("name");
                             String userLocation = response.getString("location");
                             String imgUrl = response.getString("avatar_url");
+
 
 
 //                            JSONArray res=response.getJSONArray("results");
@@ -90,12 +105,13 @@ public class parseJson extends AppCompatActivity {
                             follower.setText(Integer.toString(followers));
 
 
-                            Toast.makeText(parseJson.this,
-                                    Integer.toString(repos), Toast.LENGTH_LONG).show();
+                            /*Toast.makeText(parseJson.this,
+                                    Integer.toString(repos), Toast.LENGTH_LONG).show();*/
 //                            System.out.println("Site: "+site+"\nNetwork: "+network);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        progress.dismiss();
                     }
                 }, new Response.ErrorListener() {
 

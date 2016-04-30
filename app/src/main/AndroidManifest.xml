@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.learn.ashwini.gomovie">
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +25,12 @@
             android:name=".ShowImage"
             android:label="@string/title_activity_show_image"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".parseJson"></activity>
+        <activity android:name=".parseJson" />
+        <activity
+            android:name=".showRepositories"
+            android:label="@string/title_activity_show_repositories"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".NotificationView"></activity>
     </application>
 
 </manifest>
