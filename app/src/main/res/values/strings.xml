@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GitIo</string>
+    <string name="large_text">
+        Here I can have my text.. Or any specific content that I want.!
+        So this app uses some shitty layout and looks so cool while scrolling!
+    </string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_show_image">ShowImage</string>
+</resources>
